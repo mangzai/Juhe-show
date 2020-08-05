@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpark.dao.IpMapper">
+    <select id="sel" resultType="com.zpark.model.Ip">
+        select * from ip1  limit 1;
+    </select>
+    <!--??????-->
+    <select id="findAll" resultType="com.zpark.model.Ip">
+       /*select ip ,sum(count) from ip1 group by ip;*/
+       /*select * from ip1*/
+       select  ip ,sum(count) count from ip1 group by ip
+    </select>
+    <!--??result Map?????????-->
+   <!-- <resultMap id="ipMap" type="com.zpark.model.Ip">
+        <result property="ip" column="ip"/>
+        <result property="count" column="count"/>
+    </resultMap>-->
+</mapper>

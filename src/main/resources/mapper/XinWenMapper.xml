@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpark.dao.XinWenMapper">
+    <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+    <!--???????XinWen-->
+    <!--??????xinwen_author_name-->
+    <select id="selectAuthor" resultType="com.zpark.model.JuHeModle">
+        select name, sum(count) count from xinwen_author_name group by name
+    </select>
+    <!--??????xinwen_category-->
+    <select id="selectCategory" resultType="com.zpark.model.JuHeModle">
+        select name, sum(count) from xinwen_category group by name
+    </select>
+    <!--??????xinwen_url-->
+    <select id="selectUrl" resultType="com.zpark.model.JuHeModle">
+        select name,sum(count) count from xinwen_url group by name
+    </select>
+</mapper>

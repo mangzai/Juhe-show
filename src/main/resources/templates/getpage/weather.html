@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<h5 style="color: darkgray">天气分析</h5>
+<form id="form2">
+<select id="typeweather">
+    <option value="宣威">宣威</option>
+    <option value="宝山">宝山</option>
+    <option value="昭通">昭通</option>
+    <option value="曲靖">曲靖</option>
+    <option value="昆明">昆明</option>
+    <option value="楚雄">楚雄</option>
+    <option value="大理">大理</option>
+    <option value="腾冲">腾冲</option>
+</select>
+
+<input type="button" value="获取聚合数据据" id="btn2">
+</form>
+<script type="text/javascript">
+    var url1 = "http://apis.juhe.cn/simpleWeather/query";
+    var key = "80dc7703573bbb74bd4c31619026a241";
+    $("#btn2").click(function () {
+     //   alert($("#typeweather").find("option:selected").val());
+        $.ajax({
+            url: "getweather.do",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: {
+                "city": $("#typeweather").find("option:selected").val(),
+                "url1": url1,
+                "key": key,
+            },
+        });
+    });
+</script>
+</body>
+</html>

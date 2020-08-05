@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<!--
+<h5>请选择数据类型参数</h5>
+<form id="form1">
+    <select name="type">
+        <option value="top">头条</option>
+        <option value="shehui">社会</option>
+        <option value="guonei">国内</option>
+        <option value="yule">娱乐</option>
+        <option value="tiyu">体育</option>
+        <option value="junshi">军事</option>
+        <option value="keji">科技</option>
+        <option value="caijing">财经</option>
+        <option value="shishang">时尚</option>
+    </select>
+
+    <input type="button" value="获取聚合数据据" id="btn1">
+</form>
+-->
+<form id="formId">
+    <input type="button" value="开始分析" id="sendTo">
+</form>
+
+<div id="main" style="width: 800px;height:400px;"></div>
+
+<script type="text/javascript">
+    $("#sendTo").click(function () {
+      //  alert(".....")
+        $.ajax({
+            url:"/toServer.do",
+            type:"post",
+            //注意序列化的值一定要放在最前面,并且不需要头部变量,不然获取的值得格式会有问题
+            // data:hobby+"&name="+name+"&age="+age+"&sex="+sex+"&address="+address,
+            // dataType:"json",
+           // dataType:"json",
+
+            success:function (data) {
+                 // alert(data.result);
+                //alert(data.getAllKeys().result);
+              //  alert(data)
+                console.log(data)
+                var Data=data;
+                var ip = new Array();
+                var count=new Array();
+               for(var key in Data){
+                //   alert(key,Data[key])
+                   ip.push(key)
+                   count.push(Data[key])
+                   console.log(key,Data[key])
+               }
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: 'ip地址分析'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['ip']
+                    },
+                    xAxis: {
+                       // data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                       // data:[data.getKey()]
+                        //data:data.getAllKeys()
+                        data:ip
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                       // data: [data.result[0], data.result[1], data.result[2], data.result[3], data.result[4], data.result[5]]
+                        data:count
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<form id="weather">
+    <!--    <button id="getweather" value="分析天气">分析天气</button>-->
+    <input type="button" id="getweather" value="分析天气">
+</form>
+<div id="ecweather" style="width: 500px;height:250px;"></div>
+<script type="text/javascript">
+
+    $("#getweather").click(function () {
+        $.ajax({
+            url: "/toWeather.do",
+            type: "post",
+            success: function (data) {
+                console.log(data);
+                var Data = data;
+                var name = new Array();
+                var count = new Array();
+
+
+                for (var key in Data) {
+
+                    //   alert(key,Data[key])
+                    name.push(key);
+                    count.push(Data[key]);
+                    console.log(key, Data[key]);
+
+                }
+
+                var myChart = echarts.init(document.getElementById('ecweather'));
+                var option = {
+                    title: {
+                        text: "天气分析"
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['name']
+                    },
+                    xAxis: {
+                        /*data: name*/
+                        data:name,
+                        axisLabel:{
+                            interval:0,
+                            formatter:function (name) {
+                            var str=name.split("");
+                            return str.join("\n");
+                            }
+                        }
+
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '天气',
+                        type: 'bar',
+                        data: count
+                    }]
+                };
+
+                myChart.setOption(option);
+            }
+        });
+    });
+</script>
+</body>
+</html>
